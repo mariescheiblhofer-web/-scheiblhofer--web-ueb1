@@ -16,22 +16,42 @@
     <h2>Service Linz (Userdaten)</h2>
     <ul id="service-linz"></ul>
 
-   <script>
-  // Daten vom Server laden (Servicecall)
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then(response => response.json()) // Antwort in JSON umwandeln
-    .then(data => {
-      const sListe = document.getElementById("service-liste");
+      <script>
+        // 5.a: Array mit Linzer Stadtteilen + eigene Daten
+        const linzStadtteile = [
+            "Innenstadt",
+            "Urfahr",
+            "Bindermichl",
+            "Ebelsberg",
+            "Pichling",
+            "Mein Name: [DEIN NAME]",
+            "Name meiner Mutter: [NAME DEINER MUTTER]"
+        ];
 
-      data.forEach(user => {
-        let li = document.createElement("li");
-        li.textContent = "User: " + user.name; // Name aus API
-        sListe.appendChild(li);
-      });
-    })
-    .catch(error => {
-      console.error("Fehler beim Laden:", error);
-    });
-</script>
+        const liste = document.getElementById("liste-linz");
+
+        linzStadtteile.forEach(teil => {
+            const li = document.createElement("li");
+            li.textContent = teil;
+            liste.appendChild(li);
+        });
+
+
+        // 5.d: Daten von API laden
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(response => response.json())
+            .then(data => {
+                const serviceListe = document.getElementById("service-linz");
+
+                data.forEach(user => {
+                    const li = document.createElement("li");
+                    li.textContent = user.name;
+                    serviceListe.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error("Fehler beim Laden der Daten:", error);
+            });
+    </script>
 </body>
 </html>
